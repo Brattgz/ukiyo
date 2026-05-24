@@ -821,6 +821,8 @@
         .cat-header .section-eyebrow { color: var(--gold); }
         .cat-header .section-title   { color: var(--cream); }
         .cat-intro { max-width: 560px; color: rgba(250,249,246,0.4); font-size: 0.88rem; line-height: 1.9; margin-top: 1.1rem; }
+        .cat-contact-link { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(201,168,105,0.4); transition: color 0.2s, text-decoration-color 0.2s; }
+        .cat-contact-link:hover { color: var(--gold-light); text-decoration-color: var(--gold-light); }
 
         .cat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; max-width: 1280px; margin: 0 auto; }
         .cat-item {
@@ -1075,7 +1077,7 @@
     <div class="cat-header">
         <p class="section-eyebrow rv">Our products</p>
         <h2 class="section-title rv" data-delay="100">Four categories. Sourced <br>and shipped across <em>Europe</em>.</h2>
-        <a href="#contact" class="btn-primary mag-btn rv" data-delay="180">Contact us today for more information!</a>
+        <p class="cat-intro rv" data-delay="180"><a href="#contact" class="cat-contact-link">Contact us</a> today for more information!</p>
     </div>
 
     <div class="cat-grid">
