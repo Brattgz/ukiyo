@@ -631,19 +631,19 @@
         }
 
         .kanji-char {
-            font-size: 9rem;
+            font-size: 12rem;
             line-height: 1;
             font-family: serif;
             letter-spacing: -0.05em;
-            color: rgba(201,168,105,0.22);
+            color: rgba(201,168,105,0.45);
             display: block;
             opacity: 0;
-            transform: translateY(48px) scale(0.88);
-            filter: blur(8px);
+            transform: translateY(60px) scale(0.82);
+            filter: blur(14px);
             transition:
-                opacity   0.95s ease,
-                transform 0.95s cubic-bezier(0.23,1,0.32,1),
-                filter    0.95s ease;
+                opacity   1.1s ease,
+                transform 1.1s cubic-bezier(0.23,1,0.32,1),
+                filter    1.1s ease;
         }
 
         .kanji-char-1 { transition-delay: 0.12s; }
@@ -720,24 +720,26 @@
             border-radius: 14px;
             overflow: hidden;
             aspect-ratio: 4/3;
-            background: linear-gradient(145deg, #2a3a4e 0%, #1a2635 50%, #0f1b28 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
             position: relative;
+        }
+
+        .about-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.7s cubic-bezier(0.23,1,0.32,1);
+        }
+
+        .about-img-container:hover .about-photo {
+            transform: scale(1.04);
         }
 
         .about-img-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.45), transparent 60%);
-        }
-
-        .about-img-icon {
-            position: relative;
-            z-index: 1;
-            font-size: 5rem;
-            opacity: 0.55;
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent 55%);
+            pointer-events: none;
         }
 
         .about-body {
@@ -925,15 +927,24 @@
         }
 
         .contact-item-icon {
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             background: var(--dark);
-            border-radius: 9px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
             flex-shrink: 0;
+        }
+
+        .contact-item-icon svg {
+            width: 15px;
+            height: 15px;
+            stroke: var(--gold);
+            fill: none;
+            stroke-width: 1.6;
+            stroke-linecap: round;
+            stroke-linejoin: round;
         }
 
         .contact-item-label {
@@ -1318,12 +1329,7 @@
         }
 
         .cat-list li::after {
-            content: '—';
-            color: var(--gold);
-            opacity: 0.38;
-            font-size: 0.7rem;
-            flex-shrink: 0;
-            margin-left: 1rem;
+            content: '';
         }
 
         /* staggered reveal */
@@ -1374,7 +1380,7 @@
             .footer-top { grid-template-columns: 1fr; gap: 2rem; }
             .footer-bottom { flex-direction: column; align-items: flex-start; }
             .hero-scroll { display: none; }
-            .kanji-char { font-size: 6rem; }
+            .kanji-char { font-size: 7.5rem; }
         }
     </style>
 </head>
@@ -1432,7 +1438,7 @@
                 <p class="section-eyebrow">What we trade</p>
                 <h2 class="section-title">Four <em>divisions</em>,<br>one standard</h2>
             </div>
-            <p class="products-desc">Each category is managed with the same attention to sourcing, handling, and delivery — ensuring every shipment meets the expectations of the partners we serve.</p>
+            <p class="products-desc">Each category is managed with the same attention to sourcing, handling, and delivery, ensuring every shipment meets the expectations of the partners we serve.</p>
         </div>
         <div class="products-grid">
             <div class="product-card">
@@ -1508,7 +1514,7 @@
     <div class="cat-header">
         <p class="section-eyebrow">The catalogue</p>
         <h2 class="section-title">Four categories. Sourced, stocked<br>and shipped across <em>Europe</em>.</h2>
-        <p class="cat-intro">We hold ongoing programmes with European manufacturers and brand owners. The list below is indicative — for current availability, lot pricing and full SKU lists, please request the catalogue.</p>
+        <p class="cat-intro">We hold ongoing programmes with European manufacturers and brand owners. The list below is indicative. For current availability, lot pricing and full SKU lists, please request the catalogue.</p>
     </div>
 
     <div class="cat-grid">
@@ -1520,7 +1526,7 @@
                 <div class="cat-num-bg">01</div>
                 <p class="cat-tag">Division 01</p>
                 <h3 class="cat-name">Beverages</h3>
-                <p class="cat-desc">From everyday refreshment to functional drinks — sourced from established European producers.</p>
+                <p class="cat-desc">From everyday refreshment to functional drinks, sourced from established European producers.</p>
                 <ul class="cat-list">
                     <li>Soft drinks</li>
                     <li>Energy drinks</li>
@@ -1556,7 +1562,7 @@
                 <div class="cat-num-bg">03</div>
                 <p class="cat-tag">Division 03</p>
                 <h3 class="cat-name">Fine confectionery</h3>
-                <p class="cat-desc">Chocolate, pralines and seasonal sweets from European confectioners — gift and retail formats.</p>
+                <p class="cat-desc">Chocolate, pralines and seasonal sweets from European confectioners, in gift and retail formats.</p>
                 <ul class="cat-list">
                     <li>Pralines &amp; truffles</li>
                     <li>Chocolate bars</li>
@@ -1594,8 +1600,8 @@
                 <p class="section-eyebrow">The name</p>
                 <h2 class="section-title">A <em>floating world</em><br>in motion</h2>
                 <div class="divider"></div>
-                <p class="philosophy-body">The word <em>ukiyo</em> (浮世) originates from classical Japanese. Once meaning "the sorrowful world," it was reframed during the Edo period to describe the fleeting pleasures of everyday life — theatre, good food, refined beauty.</p>
-                <p class="philosophy-body" style="margin-top:1rem;">We carry that spirit into modern commerce. Small, modern pleasures that move quietly through everyday life — sourced with intention, delivered with care, arriving exactly where they are needed.</p>
+                <p class="philosophy-body">The word <em>ukiyo</em> (浮世) originates from classical Japanese. Once meaning "the sorrowful world," it was reframed during the Edo period to describe the fleeting pleasures of everyday life: theatre, good food, refined beauty.</p>
+                <p class="philosophy-body" style="margin-top:1rem;">We carry that spirit into modern commerce. Small, modern pleasures that move quietly through everyday life. Sourced with intention, delivered with care, arriving exactly where they are needed.</p>
             </div>
             <div class="philosophy-kanji">
                 <div class="kanji-ring kanji-ring-1"></div>
@@ -1617,15 +1623,15 @@
     <div class="container">
         <div class="about-grid">
             <div class="about-img-container">
+                <img src="pictures/depo.jpg" class="about-photo" alt="Ukiyo Trading facility">
                 <div class="about-img-overlay"></div>
-                <div class="about-img-icon">🏭</div>
             </div>
             <div class="about-text">
                 <p class="section-eyebrow">About Ukiyo Trading BV</p>
                 <h2 class="section-title">A quiet trade,<br>carried out with <em>precision</em></h2>
                 <div class="divider"></div>
-                <p class="about-body">Ukiyo Trading BV is an Amsterdam-based trading house specialising in the import, export and pan-European distribution of premium consumer goods. We work at the intersection of established brand relationships and efficient logistics — moving product across borders with minimal friction and maximum reliability.</p>
-                <p class="about-body">Our team combines deep knowledge of European import regulations, cold-chain handling, and retail-ready presentation — ensuring that what we deliver is not just product, but a service that reflects well on every party involved.</p>
+                <p class="about-body">Ukiyo Trading BV is an Amsterdam-based trading house specialising in the import, export and pan-European distribution of premium consumer goods. We work at the intersection of established brand relationships and efficient logistics, moving product across borders with minimal friction and maximum reliability.</p>
+                <p class="about-body">Our team combines deep knowledge of European import regulations, cold-chain handling, and retail-ready presentation, ensuring that what we deliver is not just product, but a service that reflects well on every party involved.</p>
                 <div class="about-stats">
                     <div>
                         <div class="stat-value">4</div>
@@ -1689,28 +1695,36 @@
                 <div class="divider"></div>
                 <div class="contact-details">
                     <div class="contact-item">
-                        <div class="contact-item-icon">📍</div>
+                        <div class="contact-item-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5" fill="none"/></svg>
+                        </div>
                         <div>
                             <p class="contact-item-label">Location</p>
                             <p class="contact-item-value">Amsterdam, The Netherlands</p>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-item-icon">✉️</div>
+                        <div class="contact-item-icon">
+                            <svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+                        </div>
                         <div>
                             <p class="contact-item-label">Email</p>
                             <p class="contact-item-value">hello@ukiyotrading.nl</p>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-item-icon">📞</div>
+                        <div class="contact-item-icon">
+                            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+                        </div>
                         <div>
                             <p class="contact-item-label">Phone</p>
                             <p class="contact-item-value">+31 (0)20 000 0000</p>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <div class="contact-item-icon">🕐</div>
+                        <div class="contact-item-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
                         <div>
                             <p class="contact-item-label">Office hours</p>
                             <p class="contact-item-value">Monday–Friday, 09:00–18:00 CET</p>
@@ -1867,7 +1881,7 @@
 
     // Fade-in on scroll
     const fadeEls = document.querySelectorAll(
-        '.product-card, .value-card, .catalog-card, .about-img-container, .philosophy-kanji'
+        '.product-card, .value-card, .catalog-card, .about-img-container'
     );
 
     const fadeObserver = new IntersectionObserver(entries => {
@@ -1898,7 +1912,7 @@
                     io.unobserve(e.target);
                 }
             });
-        }, { threshold: 0.28 });
+        }, { threshold: 0.15 });
         io.observe(sec);
     })();
 
