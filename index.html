@@ -993,43 +993,90 @@
 
         /* ── VISUAL CATALOGUE ── */
         #catalogue {
-            background: #080808;
-            overflow: hidden;
+            background: #0a0a0a;
+            padding: 7rem 2rem 7rem;
         }
 
         .cat-header {
             max-width: 1280px;
-            margin: 0 auto;
-            padding: 7rem 2rem 5rem;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            margin: 0 auto 4rem;
         }
 
         .cat-header .section-eyebrow { color: var(--gold); }
         .cat-header .section-title   { color: var(--cream); }
 
         .cat-intro {
-            max-width: 600px;
-            color: rgba(250,249,246,0.42);
-            font-size: 0.9rem;
+            max-width: 560px;
+            color: rgba(250,249,246,0.4);
+            font-size: 0.88rem;
             line-height: 1.9;
-            margin-top: 1.25rem;
+            margin-top: 1.1rem;
+        }
+
+        /* 2-column grid of cards */
+        .cat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+            max-width: 1280px;
+            margin: 0 auto;
         }
 
         .cat-item {
-            display: grid;
-            grid-template-columns: 55fr 45fr;
-            min-height: 600px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            background: #0e0e0e;
+            border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 20px;
             overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition:
+                transform    0.45s cubic-bezier(0.23,1,0.32,1),
+                border-color 0.4s ease,
+                box-shadow   0.4s ease;
         }
 
-        .cat-item--rev { grid-template-columns: 45fr 55fr; }
-        .cat-item--rev .cat-photo-wrap { order: 2; }
-        .cat-item--rev .cat-info       { order: 1; }
+        .cat-item:hover {
+            transform: translateY(-7px);
+            border-color: rgba(201,168,105,0.22);
+            box-shadow: 0 28px 64px rgba(0,0,0,0.5);
+        }
 
+        /* gold bottom accent line */
+        .cat-item::before {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            height: 2px; width: 0;
+            background: linear-gradient(90deg, var(--gold), transparent);
+            transition: width 0.55s cubic-bezier(0.23,1,0.32,1);
+            z-index: 3;
+        }
+        .cat-item:hover::before { width: 55%; }
+
+        /* shine sweep */
+        .cat-item::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: linear-gradient(
+                115deg,
+                transparent 35%,
+                rgba(255,255,255,0.035) 50%,
+                transparent 65%
+            );
+            transform: translateX(-120%);
+            transition: transform 0.75s cubic-bezier(0.23,1,0.32,1);
+            z-index: 2;
+            pointer-events: none;
+        }
+        .cat-item:hover::after { transform: translateX(120%); }
+
+        /* ── photo ── */
         .cat-photo-wrap {
             position: relative;
+            height: 260px;
             overflow: hidden;
+            flex-shrink: 0;
         }
 
         .cat-photo {
@@ -1037,74 +1084,79 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transform: scale(1.14);
-            filter: brightness(0.68) saturate(0.82);
+            transform: scale(1.08);
+            filter: brightness(0.7) saturate(0.82);
             will-change: transform;
-            transition: filter 1.1s ease;
+            opacity: 0;
+            transition:
+                opacity    0.9s ease,
+                transform  0.65s cubic-bezier(0.23,1,0.32,1),
+                filter     0.65s ease;
         }
 
-        .cat-item.is-visible .cat-photo { filter: brightness(0.84) saturate(1); }
+        .cat-item.is-visible .cat-photo { opacity: 1; }
 
-        /* edge fade into info panel */
-        .cat-item:not(.cat-item--rev) .cat-photo-wrap::after {
+        .cat-item:hover .cat-photo {
+            transform: scale(1.13);
+            filter: brightness(0.88) saturate(1.05);
+        }
+
+        /* bottom fade on photo */
+        .cat-photo-wrap::after {
             content: '';
             position: absolute; inset: 0;
-            background: linear-gradient(90deg, transparent 55%, rgba(11,11,11,0.75) 100%);
-            pointer-events: none;
-        }
-        .cat-item--rev .cat-photo-wrap::after {
-            content: '';
-            position: absolute; inset: 0;
-            background: linear-gradient(270deg, transparent 55%, rgba(11,11,11,0.75) 100%);
+            background: linear-gradient(to bottom, transparent 45%, rgba(14,14,14,0.7) 100%);
             pointer-events: none;
         }
 
+        /* ── info ── */
         .cat-info {
-            background: #0b0b0b;
-            padding: 5rem 4rem;
+            padding: 2rem 2.25rem 2.5rem;
+            flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
             position: relative;
             overflow: hidden;
         }
 
         .cat-num-bg {
             position: absolute;
-            top: -1.5rem; right: 2rem;
+            top: -1rem; right: 1.25rem;
             font-family: 'Playfair Display', serif;
-            font-size: 11rem;
+            font-size: 7.5rem;
             font-weight: 700;
             color: rgba(255,255,255,0.03);
             line-height: 1;
             pointer-events: none;
             user-select: none;
+            transition: color 0.4s;
         }
+        .cat-item:hover .cat-num-bg { color: rgba(201,168,105,0.06); }
 
         .cat-tag {
-            font-size: 0.63rem;
-            letter-spacing: 0.24em;
+            font-size: 0.62rem;
+            letter-spacing: 0.22em;
             text-transform: uppercase;
             color: var(--gold);
             font-weight: 500;
-            margin-bottom: 1.1rem;
+            margin-bottom: 0.6rem;
         }
 
         .cat-name {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+            font-size: 1.45rem;
             font-weight: 500;
             color: rgba(250,249,246,0.92);
-            margin-bottom: 1.1rem;
-            line-height: 1.15;
+            margin-bottom: 0.65rem;
+            line-height: 1.2;
         }
 
         .cat-desc {
-            color: rgba(250,249,246,0.42);
-            font-size: 0.88rem;
-            line-height: 1.9;
-            max-width: 350px;
-            margin-bottom: 2.25rem;
+            color: rgba(250,249,246,0.4);
+            font-size: 0.84rem;
+            line-height: 1.85;
+            margin-bottom: 1.5rem;
+            flex: 1;
         }
 
         .cat-list {
@@ -1116,24 +1168,24 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0.85rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.055);
-            font-size: 0.875rem;
-            color: rgba(250,249,246,0.48);
-            transition: color 0.25s ease, padding-left 0.25s ease;
+            padding: 0.72rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.845rem;
+            color: rgba(250,249,246,0.45);
+            transition: color 0.22s ease, padding-left 0.22s ease;
             cursor: default;
         }
 
         .cat-list li:hover {
             color: rgba(250,249,246,0.82);
-            padding-left: 0.5rem;
+            padding-left: 0.45rem;
         }
 
         .cat-list li::after {
             content: '—';
             color: var(--gold);
-            opacity: 0.4;
-            font-size: 0.72rem;
+            opacity: 0.38;
+            font-size: 0.7rem;
             flex-shrink: 0;
             margin-left: 1rem;
         }
@@ -1141,23 +1193,22 @@
         /* staggered reveal */
         .cat-info > * {
             opacity: 0;
-            transform: translateY(22px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+            transform: translateY(16px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
-        .cat-item.is-visible .cat-info > *:nth-child(1) { opacity:1; transform:none; transition-delay:0.05s; }
-        .cat-item.is-visible .cat-info > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.13s; }
-        .cat-item.is-visible .cat-info > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.21s; }
-        .cat-item.is-visible .cat-info > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.29s; }
-        .cat-item.is-visible .cat-info > *:nth-child(5) { opacity:1; transform:none; transition-delay:0.37s; }
+        .cat-item.is-visible .cat-info > *:nth-child(1) { opacity:1; transform:none; transition-delay:0.06s; }
+        .cat-item.is-visible .cat-info > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.14s; }
+        .cat-item.is-visible .cat-info > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.22s; }
+        .cat-item.is-visible .cat-info > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.30s; }
+        .cat-item.is-visible .cat-info > *:nth-child(5) { opacity:1; transform:none; transition-delay:0.38s; }
 
         @media (max-width: 900px) {
-            .cat-item, .cat-item--rev { grid-template-columns: 1fr; min-height: auto; }
-            .cat-photo-wrap           { height: 300px; }
-            .cat-item--rev .cat-photo-wrap { order: 0; }
-            .cat-item--rev .cat-info       { order: 1; }
-            .cat-info    { padding: 3rem 1.5rem; }
-            .cat-num-bg  { display: none; }
+            #catalogue       { padding: 4rem 1.25rem 5rem; }
+            .cat-grid        { grid-template-columns: 1fr; gap: 1rem; }
+            .cat-photo-wrap  { height: 230px; }
+            .cat-info        { padding: 1.75rem; }
+            .cat-num-bg      { display: none; }
         }
 
         /* ── ANIMATIONS ── */
@@ -1324,75 +1375,77 @@
         <p class="cat-intro">We hold ongoing programmes with European manufacturers and brand owners. The list below is indicative — for current availability, lot pricing and full SKU lists, please request the catalogue.</p>
     </div>
 
-    <div class="cat-item" id="cat-beverages">
-        <div class="cat-photo-wrap">
-            <img src="pictures/beverages.jpg" class="cat-photo" alt="Beverages">
+    <div class="cat-grid">
+        <div class="cat-item" id="cat-beverages">
+            <div class="cat-photo-wrap">
+                <img src="pictures/beverages.jpg" class="cat-photo" alt="Beverages">
+            </div>
+            <div class="cat-info">
+                <div class="cat-num-bg">01</div>
+                <p class="cat-tag">Division 01</p>
+                <h3 class="cat-name">Beverages</h3>
+                <p class="cat-desc">From everyday refreshment to functional drinks — sourced from established European producers.</p>
+                <ul class="cat-list">
+                    <li>Soft drinks</li>
+                    <li>Energy drinks</li>
+                    <li>Sparkling waters</li>
+                    <li>Still &amp; flavoured waters</li>
+                </ul>
+            </div>
         </div>
-        <div class="cat-info">
-            <div class="cat-num-bg">01</div>
-            <p class="cat-tag">Division 01</p>
-            <h3 class="cat-name">Beverages</h3>
-            <p class="cat-desc">From everyday refreshment to functional drinks — sourced from established European producers.</p>
-            <ul class="cat-list">
-                <li>Soft drinks</li>
-                <li>Energy drinks</li>
-                <li>Sparkling waters</li>
-                <li>Still &amp; flavoured waters</li>
-            </ul>
-        </div>
-    </div>
 
-    <div class="cat-item cat-item--rev" id="cat-coffee">
-        <div class="cat-photo-wrap">
-            <img src="pictures/coffee.jpg" class="cat-photo" alt="Coffee">
+        <div class="cat-item" id="cat-coffee">
+            <div class="cat-photo-wrap">
+                <img src="pictures/coffee.jpg" class="cat-photo" alt="Coffee">
+            </div>
+            <div class="cat-info">
+                <div class="cat-num-bg">02</div>
+                <p class="cat-tag">Division 02</p>
+                <h3 class="cat-name">Coffee</h3>
+                <p class="cat-desc">Roasted beans, ground coffee and capsule formats from speciality and commercial origins.</p>
+                <ul class="cat-list">
+                    <li>Whole bean coffee</li>
+                    <li>Ground coffee</li>
+                    <li>Espresso &amp; capsules</li>
+                    <li>Single-origin programmes</li>
+                </ul>
+            </div>
         </div>
-        <div class="cat-info">
-            <div class="cat-num-bg">02</div>
-            <p class="cat-tag">Division 02</p>
-            <h3 class="cat-name">Coffee</h3>
-            <p class="cat-desc">Roasted beans, ground coffee and capsule formats from speciality and commercial origins.</p>
-            <ul class="cat-list">
-                <li>Whole bean coffee</li>
-                <li>Ground coffee</li>
-                <li>Espresso &amp; capsules</li>
-                <li>Single-origin programmes</li>
-            </ul>
-        </div>
-    </div>
 
-    <div class="cat-item" id="cat-confectionery">
-        <div class="cat-photo-wrap">
-            <img src="pictures/confectionery.jpg" class="cat-photo" alt="Fine Confectionery">
+        <div class="cat-item" id="cat-confectionery">
+            <div class="cat-photo-wrap">
+                <img src="pictures/confectionery.jpg" class="cat-photo" alt="Fine Confectionery">
+            </div>
+            <div class="cat-info">
+                <div class="cat-num-bg">03</div>
+                <p class="cat-tag">Division 03</p>
+                <h3 class="cat-name">Fine confectionery</h3>
+                <p class="cat-desc">Chocolate, pralines and seasonal sweets from European confectioners — gift and retail formats.</p>
+                <ul class="cat-list">
+                    <li>Pralines &amp; truffles</li>
+                    <li>Chocolate bars</li>
+                    <li>Boxed assortments</li>
+                    <li>Seasonal &amp; gifting</li>
+                </ul>
+            </div>
         </div>
-        <div class="cat-info">
-            <div class="cat-num-bg">03</div>
-            <p class="cat-tag">Division 03</p>
-            <h3 class="cat-name">Fine confectionery</h3>
-            <p class="cat-desc">Chocolate, pralines and seasonal sweets from European confectioners — gift and retail formats.</p>
-            <ul class="cat-list">
-                <li>Pralines &amp; truffles</li>
-                <li>Chocolate bars</li>
-                <li>Boxed assortments</li>
-                <li>Seasonal &amp; gifting</li>
-            </ul>
-        </div>
-    </div>
 
-    <div class="cat-item cat-item--rev" id="cat-cosmetics">
-        <div class="cat-photo-wrap">
-            <img src="pictures/cosmetics.jpg" class="cat-photo" alt="Cosmetics">
-        </div>
-        <div class="cat-info">
-            <div class="cat-num-bg">04</div>
-            <p class="cat-tag">Division 04</p>
-            <h3 class="cat-name">Cosmetics, skincare &amp; perfume</h3>
-            <p class="cat-desc">Branded beauty products handled with the documentation and care the category demands.</p>
-            <ul class="cat-list">
-                <li>Skincare</li>
-                <li>Cosmetics &amp; makeup</li>
-                <li>Designer perfumes</li>
-                <li>Personal care</li>
-            </ul>
+        <div class="cat-item" id="cat-cosmetics">
+            <div class="cat-photo-wrap">
+                <img src="pictures/cosmetics.jpg" class="cat-photo" alt="Cosmetics">
+            </div>
+            <div class="cat-info">
+                <div class="cat-num-bg">04</div>
+                <p class="cat-tag">Division 04</p>
+                <h3 class="cat-name">Cosmetics, skincare &amp; perfume</h3>
+                <p class="cat-desc">Branded beauty products handled with the documentation and care the category demands.</p>
+                <ul class="cat-list">
+                    <li>Skincare</li>
+                    <li>Cosmetics &amp; makeup</li>
+                    <li>Designer perfumes</li>
+                    <li>Personal care</li>
+                </ul>
+            </div>
         </div>
     </div>
 </section>
