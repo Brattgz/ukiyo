@@ -675,6 +675,7 @@
         #values { background: var(--white); padding: 6rem 2rem; }
         .values-header { text-align: center; margin-bottom: 4rem; }
         .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .values-grid--single { grid-template-columns: 1fr; max-width: 760px; margin: 0 auto; }
         .value-card {
             padding: 2.5rem;
             border: 1px solid var(--border);
@@ -697,6 +698,7 @@
         .value-icon { font-size: 1.4rem; margin-bottom: 1.25rem; }
         .value-name { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 500; margin-bottom: 0.75rem; }
         .value-desc { color: var(--muted); font-size: 0.875rem; line-height: 1.75; }
+        .values-grid--single .value-desc { font-size: 1rem; line-height: 1.85; text-align: center; }
 
         /* ────────────────────────────────────────────
            CATALOG (text-list version)
@@ -1211,26 +1213,11 @@
     <div class="container">
         <div class="values-header">
             <p class="section-eyebrow rv">Our vision</p>
-            <h2 class="section-title rv" data-delay="100">Three guiding <em>principles</em></h2>
+            <h2 class="section-title rv" data-delay="100">Quietly connecting the world's <em>best</em></h2>
         </div>
-        <div class="values-grid">
+        <div class="values-grid values-grid--single">
             <div class="value-card rv" data-delay="0">
-                <div class="value-number">01</div>
-                <div class="value-icon">🎯</div>
-                <h3 class="value-name">Selectivity</h3>
-                <p class="value-desc">We do not distribute everything. We work with a curated portfolio of trusted brands and partners, ensuring that each relationship is built on shared standards of quality and commercial integrity.</p>
-            </div>
-            <div class="value-card rv" data-delay="100">
-                <div class="value-number">02</div>
-                <div class="value-icon">🚚</div>
-                <h3 class="value-name">Reliability</h3>
-                <p class="value-desc">Our in-house European logistics infrastructure ensures that orders move on time, with full tracking, proper documentation, and a single point of contact from order to delivery.</p>
-            </div>
-            <div class="value-card rv" data-delay="200">
-                <div class="value-number">03</div>
-                <div class="value-icon">🤝</div>
-                <h3 class="value-name">Discretion</h3>
-                <p class="value-desc">Many of our relationships with manufacturers and retailers are long-term and built on trust. We operate quietly, without noise, as a professional extension of the brands we represent.</p>
+                <p class="value-desc">Our vision is to become the preferred beverage supplier and trading partner for premium everyday luxuries in Europe — recognized for connecting exceptional producers with discerning clients through seamless execution and unwavering reliability.</p>
             </div>
         </div>
     </div>
