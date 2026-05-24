@@ -524,51 +524,187 @@
 
         /* ── PHILOSOPHY ── */
         #philosophy {
-            background: var(--dark);
-            color: var(--cream);
+            background: linear-gradient(155deg, #f7f2ea 0%, #faf9f6 55%, #ede8de 100%);
+            color: var(--dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* subtle warm radial glow on right */
+        #philosophy::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0;
+            width: 55%; height: 100%;
+            background: radial-gradient(ellipse at 75% 50%, rgba(201,168,105,0.08) 0%, transparent 65%);
+            pointer-events: none;
         }
 
         .philosophy-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 6rem;
+            gap: 5rem;
             align-items: center;
+            position: relative;
         }
 
-        .philosophy-text .section-title { color: var(--cream); }
+        /* thin vertical separator */
+        .philosophy-grid::after {
+            content: '';
+            position: absolute;
+            left: 50%; top: 8%; height: 84%;
+            width: 1px;
+            background: linear-gradient(to bottom,
+                transparent,
+                rgba(201,168,105,0.22) 35%,
+                rgba(201,168,105,0.22) 65%,
+                transparent);
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        /* ── left text ── */
+        .philosophy-text .section-title { color: var(--dark); }
+        .philosophy-text .section-eyebrow { color: var(--gold); }
+
+        /* animated gold divider */
+        .philosophy-text .divider {
+            width: 0;
+            transition: width 0.85s cubic-bezier(0.23,1,0.32,1) 0.2s;
+        }
+        #philosophy.is-visible .philosophy-text .divider { width: 48px; }
 
         .philosophy-body {
-            color: rgba(250,249,246,0.6);
-            font-size: 0.97rem;
-            line-height: 1.85;
+            color: var(--muted);
+            font-size: 0.95rem;
+            line-height: 1.88;
         }
 
-        .philosophy-kanji { text-align: center; }
+        .philosophy-body em { color: var(--gold-dark); font-style: italic; }
+
+        /* left text reveal */
+        .philosophy-text > * {
+            opacity: 0;
+            transform: translateX(-18px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        #philosophy.is-visible .philosophy-text > *:nth-child(1) { opacity:1; transform:none; transition-delay:0.05s; }
+        #philosophy.is-visible .philosophy-text > *:nth-child(2) { opacity:1; transform:none; transition-delay:0.15s; }
+        #philosophy.is-visible .philosophy-text > *:nth-child(3) { opacity:1; transform:none; transition-delay:0.25s; }
+        #philosophy.is-visible .philosophy-text > *:nth-child(4) { opacity:1; transform:none; transition-delay:0.35s; }
+        #philosophy.is-visible .philosophy-text > *:nth-child(5) { opacity:1; transform:none; transition-delay:0.45s; }
+
+        /* ── right kanji ── */
+        .philosophy-kanji {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            padding: 2rem;
+        }
+
+        /* decorative rings */
+        .kanji-ring {
+            position: absolute;
+            border-radius: 50%;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+        }
+        .kanji-ring-1 {
+            width: 300px; height: 300px;
+            border: 1px solid rgba(201,168,105,0.14);
+        }
+        .kanji-ring-2 {
+            width: 200px; height: 200px;
+            border: 1px solid rgba(201,168,105,0.08);
+        }
+
+        /* kanji characters split for stagger */
+        .kanji-wrap {
+            display: flex;
+            gap: 0.05em;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
 
         .kanji-char {
             font-size: 9rem;
             line-height: 1;
-            color: rgba(201, 168, 105, 0.18);
             font-family: serif;
-            display: block;
-            margin-bottom: 1.75rem;
             letter-spacing: -0.05em;
+            color: rgba(201,168,105,0.22);
+            display: block;
+            opacity: 0;
+            transform: translateY(48px) scale(0.88);
+            filter: blur(8px);
+            transition:
+                opacity   0.95s ease,
+                transform 0.95s cubic-bezier(0.23,1,0.32,1),
+                filter    0.95s ease;
         }
 
+        .kanji-char-1 { transition-delay: 0.12s; }
+        .kanji-char-2 { transition-delay: 0.30s; }
+
+        #philosophy.is-visible .kanji-char {
+            opacity: 1;
+            transform: none;
+            filter: blur(0);
+        }
+
+        /* scan line — gold horizontal sweep */
+        .kanji-scan {
+            position: absolute;
+            left: 50%;
+            width: 180px;
+            height: 1.5px;
+            background: linear-gradient(90deg, transparent, rgba(201,168,105,0.7), transparent);
+            transform: translateX(-50%);
+            top: 15%;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        #philosophy.is-visible .kanji-scan {
+            animation: kScan 1.4s cubic-bezier(0.23,1,0.32,1) 0.55s forwards;
+        }
+
+        @keyframes kScan {
+            0%   { top: 15%; opacity: 0.9; }
+            85%  { opacity: 0.6; }
+            100% { top: 75%; opacity: 0; }
+        }
+
+        /* meaning + reading */
         .kanji-meaning {
             font-family: 'Playfair Display', serif;
-            font-size: 1.25rem;
-            color: var(--gold);
+            font-size: 1.1rem;
+            color: var(--gold-dark);
             font-style: italic;
+            position: relative; z-index: 1;
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.65s ease 0.52s, transform 0.65s ease 0.52s;
         }
 
+        #philosophy.is-visible .kanji-meaning { opacity: 1; transform: none; }
+
         .kanji-reading {
-            font-size: 0.75rem;
-            letter-spacing: 0.2em;
+            font-size: 0.72rem;
+            letter-spacing: 0.22em;
             text-transform: uppercase;
-            color: rgba(250,249,246,0.35);
+            color: var(--muted-2);
             margin-top: 0.6rem;
+            position: relative; z-index: 1;
+            opacity: 0;
+            transition: opacity 0.65s ease 0.68s;
         }
+
+        #philosophy.is-visible .kanji-reading { opacity: 1; }
 
         /* ── ABOUT ── */
         #about { background: var(--cream); }
@@ -1456,14 +1592,19 @@
         <div class="philosophy-grid">
             <div class="philosophy-text">
                 <p class="section-eyebrow">The name</p>
-                <h2 class="section-title" style="color:var(--cream)">A <em>floating world</em><br>in motion</h2>
+                <h2 class="section-title">A <em>floating world</em><br>in motion</h2>
                 <div class="divider"></div>
-                <p class="philosophy-body">The word <em style="color:var(--gold-light)">ukiyo</em> (浮世) originates from classical Japanese. Once meaning "the sorrowful world," it was reframed during the Edo period to describe the fleeting pleasures of everyday life — theatre, good food, refined beauty.</p>
-                <br>
-                <p class="philosophy-body">We carry that spirit into modern commerce. Small, modern pleasures that move quietly through everyday life — sourced with intention, delivered with care, arriving exactly where they are needed.</p>
+                <p class="philosophy-body">The word <em>ukiyo</em> (浮世) originates from classical Japanese. Once meaning "the sorrowful world," it was reframed during the Edo period to describe the fleeting pleasures of everyday life — theatre, good food, refined beauty.</p>
+                <p class="philosophy-body" style="margin-top:1rem;">We carry that spirit into modern commerce. Small, modern pleasures that move quietly through everyday life — sourced with intention, delivered with care, arriving exactly where they are needed.</p>
             </div>
             <div class="philosophy-kanji">
-                <span class="kanji-char">浮世</span>
+                <div class="kanji-ring kanji-ring-1"></div>
+                <div class="kanji-ring kanji-ring-2"></div>
+                <div class="kanji-scan"></div>
+                <div class="kanji-wrap">
+                    <span class="kanji-char kanji-char-1">浮</span>
+                    <span class="kanji-char kanji-char-2">世</span>
+                </div>
                 <p class="kanji-meaning">"The floating world"</p>
                 <p class="kanji-reading">Ukiyo · Japanese</p>
             </div>
@@ -1745,6 +1886,21 @@
         el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
         fadeObserver.observe(el);
     });
+
+    // ── PHILOSOPHY scroll reveal ────────────────────────────────────
+    (function initPhilosophy() {
+        const sec = document.getElementById('philosophy');
+        if (!sec) return;
+        const io = new IntersectionObserver(entries => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('is-visible');
+                    io.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.28 });
+        io.observe(sec);
+    })();
 
     // ── CATALOGUE parallax + reveal ────────────────────────────────
     (function initCatalogue() {
