@@ -178,16 +178,16 @@
             opacity: 0;
             will-change: transform, left, top;
         }
-        .float-img--coffee    { width: 210px; }
-        .float-img--chocolate { width: 220px; }
+        .float-img--coffee    { width: 180px; }
+        .float-img--chocolate { width: 200px; }
         .float-img--perfume   { width: 145px; }
 
         @media (max-width: 1100px) {
             .hero-content { flex-direction: column; gap: 0; }
             .hero-text { flex: none; width: 100%; }
             .hero-visuals { width: 100%; height: 260px; margin-top: 2rem; }
-            .float-img--coffee    { width: 140px; }
-            .float-img--chocolate { width: 148px; }
+            .float-img--coffee    { width: 120px; }
+            .float-img--chocolate { width: 135px; }
             .float-img--perfume   { width: 95px; }
         }
         @media (max-width: 768px) { .hero-visuals { display: none; } }
@@ -987,7 +987,7 @@
         <div class="hero-visuals" id="heroVisuals" aria-hidden="true">
             <canvas id="orbitCanvas"></canvas>
             <img src="pictures/memorycard.png" id="imgCoffee"    class="float-img float-img--coffee"    alt="">
-            <img src="pictures/smartwatch.avif" id="imgChocolate" class="float-img float-img--chocolate" alt="">
+            <img src="pictures/applewatch.png" id="imgChocolate" class="float-img float-img--chocolate" alt="">
             <img src="pictures/perfume.png"   id="imgPerfume"   class="float-img float-img--perfume"   alt="">
         </div>
     </div>
@@ -1010,7 +1010,7 @@
         <div class="products-grid">
             <div class="product-card rv" data-delay="0">
                 <div class="product-img-wrap">
-                    <img src="pictures/memorycard.png" class="product-photo" alt="Electronics">
+                    <img src="pictures/confectionery.jpg" class="product-photo" alt="Electronics">
                     <div class="product-img-gradient"></div>
                 </div>
                 <div class="product-body">
@@ -1038,7 +1038,7 @@
             </div>
             <div class="product-card rv" data-delay="200">
                 <div class="product-img-wrap">
-                    <img src="pictures/smartwatch.avif" class="product-photo" alt="Coffee">
+                    <img src="pictures/coffee.jpg" class="product-photo" alt="Coffee">
                     <div class="product-img-gradient"></div>
                 </div>
                 <div class="product-body">
@@ -1108,7 +1108,7 @@
     <div class="cat-grid">
         <div class="cat-item" id="cat-electronics">
             <div class="cat-photo-wrap">
-                <img src="pictures/memorycard.png" class="cat-photo" alt="Electronics">
+                <img src="pictures/confectionery.jpg" class="cat-photo" alt="Electronics">
             </div>
             <div class="cat-info">
                 <h3 class="cat-name">Electronics</h3>
@@ -1139,7 +1139,7 @@
 
         <div class="cat-item" id="cat-coffee">
             <div class="cat-photo-wrap">
-                <img src="pictures/smartwatch.avif" class="cat-photo" alt="Coffee">
+                <img src="pictures/coffee.jpg" class="cat-photo" alt="Coffee">
             </div>
             <div class="cat-info">
                 <h3 class="cat-name">Coffee</h3>
@@ -1707,6 +1707,25 @@
             requestAnimationFrame(tick);
         }
     })();
+</script>
+
+<script>
+// Remove white background from memory card orbital image
+window.addEventListener('load', function() {
+    var img = document.getElementById('imgCoffee');
+    if (!img || !img.naturalWidth) return;
+    var c = document.createElement('canvas');
+    c.width = img.naturalWidth; c.height = img.naturalHeight;
+    var ctx = c.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+    var d = ctx.getImageData(0, 0, c.width, c.height);
+    var px = d.data;
+    for (var i = 0; i < px.length; i += 4) {
+        if (px[i] > 235 && px[i+1] > 235 && px[i+2] > 235) px[i+3] = 0;
+    }
+    ctx.putImageData(d, 0, 0);
+    img.src = c.toDataURL('image/png');
+});
 </script>
 
 </body>
