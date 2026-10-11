@@ -13,6 +13,7 @@ const mimeTypes = {
     '.svg':  'image/svg+xml',
     '.ico':  'image/x-icon',
     '.woff2':'font/woff2',
+    '.avif': 'image/avif',
 };
 
 http.createServer((req, res) => {
